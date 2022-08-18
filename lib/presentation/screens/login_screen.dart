@@ -18,6 +18,7 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  bool isPassword = true;
 
   final _formKey = GlobalKey<FormState>();
 
@@ -92,10 +93,12 @@ class _LoginScreenState extends State<LoginScreen> {
                                               label: 'Email'
                                           ),
                                           defaultFormField(
+                                            suffix: Icons.remove_red_eye_outlined,
                                               label: 'Password'
                                           ),
                                           defaultFormField(
-                                              label: 'Comfirm Password'
+                                            suffix: Icons.remove_red_eye_outlined,
+                                              label: 'Confirm Password'
                                           ),
                                           defaultButton(
                                             text: 'Sign Up',
@@ -112,9 +115,16 @@ class _LoginScreenState extends State<LoginScreen> {
                                         children: [
                                           defaultFormField(
                                             controller: emailController,
-                                              label: 'Email'
+                                              label: 'Email',
                                           ),
                                           defaultFormField(
+                                            suffixPressed: (){
+                                              setState(() {
+                                                isPassword = !isPassword;
+                                              });
+                                            },
+                                            suffix: isPassword ? Icons.visibility : Icons.visibility_off  ,
+                                            isPassword: isPassword,
                                             controller: passwordController,
                                               label: 'Password',
                                           ),
