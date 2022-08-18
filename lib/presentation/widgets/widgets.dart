@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 Widget defaultFormField({
-  String? label
+  TextEditingController? controller,
+  String? label,
 }) => Column(
   crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -12,6 +13,12 @@ Widget defaultFormField({
         Padding(
           padding: const EdgeInsets.all(20.0),
           child: TextFormField(
+            controller: controller,
+            validator: (value) {
+              if(value!.isEmpty){
+                return 'Enter Valid data';
+              }
+            },
             decoration: InputDecoration(
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(5),
