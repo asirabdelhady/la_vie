@@ -1,121 +1,165 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:la_vie/business_logic/cubit/cubit.dart';
-import 'package:la_vie/business_logic/cubit/states.dart';
-import 'package:la_vie/data/web_services/end_points.dart';
-
+import 'package:la_vie/business_logic/registration_cubit/cubit.dart';
+import 'package:la_vie/business_logic/registration_cubit/states.dart';
+import '../../business_logic/login_cubit/cubit.dart';
+import '../../business_logic/login_cubit/states.dart';
 import '../widgets/widgets.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
 
   @override
+  // ignore: library_private_types_in_public_api
   _LoginScreenState createState() => _LoginScreenState();
 }
 
 class _LoginScreenState extends State<LoginScreen> {
   TextEditingController emailController = TextEditingController();
+  TextEditingController firstNameController = TextEditingController();
+  TextEditingController lastNameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  TextEditingController confirmPasswordController = TextEditingController();
   bool isPassword = true;
 
   final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
-
-    return BlocProvider(
-      create: (BuildContext context) => LoginCubit(),
-      child: BlocConsumer<LoginCubit, LoginStates>(
-        listener: (context, state) {} ,
-        builder: (context, state) {
-          return Scaffold(
-            body: Stack(
-              children: [
-                Container(
-                  decoration: const BoxDecoration(
-                      image: DecorationImage(
-                        image: AssetImage('assets/images/Login page background.png'),
-                        fit: BoxFit.cover,
-                      )),
-                ),
-                SingleChildScrollView(
-                  child: Form(
-                    key: _formKey,
-                    child: Column(
-                      children: [
-                        const Padding(
-                          padding: EdgeInsets.only(top: 100.0),
-                          child:
-                          Image(image: AssetImage('assets/images/La Vie Logo.png')),
-                        ),
-                        SizedBox(
-                          height: 450,
-                          width: double.infinity,
-                          child: DefaultTabController(
-                            length: 2,
-                            child: Scaffold(
-                              appBar: AppBar(
-                                backgroundColor: Colors.transparent,
-                                bottomOpacity: 1,
-                                elevation: 0,
-                                title: const TabBar(
-                                    unselectedLabelColor: Colors.grey,
-                                    labelColor: Color(0xff1ABC00),
-                                    indicatorColor: Color(0xff1ABC00),
-                                    tabs: [
-                                      Tab(
-                                        child: Text(
-                                          'Sign up',
-                                          style: TextStyle(),
-                                        ),
-                                      ),
-                                      Tab(
-                                        child: Text('Login'),
-                                      )
-                                    ]),
-                              ),
-                              body: TabBarView(
-                                  physics: const BouncingScrollPhysics(),
-                                  children: [
-                                    SingleChildScrollView(
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (BuildContext context) => LoginCubit(),
+        ),
+        BlocProvider(
+          create: (BuildContext context) => RegistrationCubit(),
+        ),
+      ],
+      child: Scaffold(
+        body: Stack(
+          children: [
+            Container(
+              decoration: const BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage('assets/images/Login page background.png'),
+                    fit: BoxFit.cover,
+                  )),
+            ),
+            SingleChildScrollView(
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  children: [
+                    const Padding(
+                      padding: EdgeInsets.only(top: 100.0),
+                      child:
+                      Image(image: AssetImage('assets/images/La Vie Logo.png')),
+                    ),
+                    SizedBox(
+                      height: 450,
+                      width: double.infinity,
+                      child: DefaultTabController(
+                        length: 2,
+                        child: Scaffold(
+                          appBar: AppBar(
+                            backgroundColor: Colors.transparent,
+                            bottomOpacity: 1,
+                            elevation: 0,
+                            title: const TabBar(
+                                unselectedLabelColor: Colors.grey,
+                                labelColor: Color(0xff1ABC00),
+                                indicatorColor: Color(0xff1ABC00),
+                                tabs: [
+                                  Tab(
+                                    child: Text(
+                                      'Sign up',
+                                      style: TextStyle(),
+                                    ),
+                                  ),
+                                  Tab(
+                                    child: Text('Login'),
+                                  )
+                                ]),
+                          ),
+                          body: TabBarView(
+                              physics: const BouncingScrollPhysics(),
+                              children: [
+                                BlocConsumer<RegistrationCubit, RegistrationStates>(
+                                  listener: (context, state) {},
+                                  builder: (context, state) {
+                                    return SingleChildScrollView(
                                       physics: const BouncingScrollPhysics(),
                                       child: Column(
                                         children: [
                                           defaultFormField(
+                                              controller: firstNameController,
                                               label: 'First Name'
                                           ),
                                           defaultFormField(
+                                              controller: lastNameController,
                                               label: 'Last Name'
                                           ),
                                           defaultFormField(
+                                              controller: emailController,
                                               label: 'Email'
                                           ),
                                           defaultFormField(
-                                            suffix: Icons.remove_red_eye_outlined,
+                                            isPassword: isPassword,
+                                              controller: passwordController,
+                                              suffixPressed: (){
+                                                setState(() {
+                                                  isPassword = !isPassword;
+                                                });
+                                              },
+                                              suffix: isPassword ? Icons.visibility : Icons.visibility_off,
                                               label: 'Password'
                                           ),
                                           defaultFormField(
-                                            suffix: Icons.remove_red_eye_outlined,
+                                            isPassword: isPassword,
+                                              controller: confirmPasswordController,
+                                              suffixPressed: (){
+                                                setState(() {
+                                                  isPassword = !isPassword;
+                                                });
+                                              },
+                                              suffix: isPassword ? Icons.visibility : Icons.visibility_off,
                                               label: 'Confirm Password'
                                           ),
-                                          defaultButton(
-                                            text: 'Sign Up',
-                                            onPressed: (){if(_formKey.currentState!.validate()){
-                                              print('Proccesing Data');
-                                            }
-                                            },),
+                                          ConditionalBuilder(
+                                            condition:state is! RegistrationLoadingState  ,
+                                            builder: (context) =>defaultButton(
+                                                text: 'SIGN up',
+                                                onPressed: (){
+                                                  if(_formKey.currentState!.validate()){
+                                                    RegistrationCubit.get(context).userRegistration(
+                                                      confirmPassword: confirmPasswordController.text,
+                                                      firstName: firstNameController.text,
+                                                      lastName: lastNameController.text,
+                                                      email: emailController.text,
+                                                      password: passwordController.text,
+                                                    );
+                                                  }
+
+                                                }
+                                            ),
+                                            fallback: (context)=> const CircularProgressIndicator(),
+                                          ),
 
                                         ],
                                       ),
-                                    ),
-                                    SingleChildScrollView(
+                                    );
+                                  },
+                                ),
+                                BlocConsumer<LoginCubit, LoginStates>(
+                                  listener: (context, state){},
+                                  builder: (context, state){
+                                    return SingleChildScrollView(
                                       child: Column(
                                         children: [
                                           defaultFormField(
                                             controller: emailController,
-                                              label: 'Email',
+                                            label: 'Email',
                                           ),
                                           defaultFormField(
                                             suffixPressed: (){
@@ -123,10 +167,10 @@ class _LoginScreenState extends State<LoginScreen> {
                                                 isPassword = !isPassword;
                                               });
                                             },
-                                            suffix: isPassword ? Icons.visibility : Icons.visibility_off  ,
+                                            suffix: isPassword ? Icons.visibility : Icons.visibility_off,
                                             isPassword: isPassword,
                                             controller: passwordController,
-                                              label: 'Password',
+                                            label: 'Password',
                                           ),
                                           ConditionalBuilder(
                                             condition:state is! LoginLoadingState  ,
@@ -142,51 +186,51 @@ class _LoginScreenState extends State<LoginScreen> {
 
                                                 }
                                             ),
-                                            fallback: (context)=> CircularProgressIndicator(),
+                                            fallback: (context)=> const CircularProgressIndicator(),
                                           ),
 
                                         ],
                                       ),
-                                    )
-                                  ]),
+                                    );
+                                  },
+                                )
+                              ]),
 
-                            ),
-                          ),
                         ),
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(20,0,20,20),
-                          child: Row(
-                              children: const [
-                                Expanded(
-                                    child: Divider(
-                                      color: Color(0xff8A8A8A),
-                                    )
-                                ),
-                                Text("or continue with"),
-                                Expanded(
-                                    child: Divider(
-                                      color: Color(0xff8A8A8A),
-                                    )
-                                ),
-                              ]
-                          ),
-                        ),
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            IconButton(onPressed: (){}, icon: Image.asset('assets/images/Google.png'),),
-                            IconButton(onPressed: (){}, icon: Image.asset('assets/images/Facebook.png'),)
-                          ],
-                        )
-                      ],
+                      ),
                     ),
-                  ),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(20,0,20,20),
+                      child: Row(
+                          children: const [
+                            Expanded(
+                                child: Divider(
+                                  color: Color(0xff8A8A8A),
+                                )
+                            ),
+                            Text("or continue with"),
+                            Expanded(
+                                child: Divider(
+                                  color: Color(0xff8A8A8A),
+                                )
+                            ),
+                          ]
+                      ),
+                    ),
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        IconButton(onPressed: (){}, icon: Image.asset('assets/images/Google.png'),),
+                        IconButton(onPressed: (){}, icon: Image.asset('assets/images/Facebook.png'),)
+                      ],
+                    )
+                  ],
                 ),
-              ],
+              ),
             ),
-          );
-        },
+          ],
+        ),
       ),
     );
   }
