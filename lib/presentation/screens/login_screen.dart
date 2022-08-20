@@ -1,8 +1,10 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:la_vie/business_logic/registration_cubit/cubit.dart';
 import 'package:la_vie/business_logic/registration_cubit/states.dart';
+import 'package:la_vie/data/models/login_model.dart';
 import '../../business_logic/login_cubit/cubit.dart';
 import '../../business_logic/login_cubit/states.dart';
 import '../widgets/widgets.dart';
@@ -86,7 +88,31 @@ class _LoginScreenState extends State<LoginScreen> {
                               physics: const BouncingScrollPhysics(),
                               children: [
                                 BlocConsumer<RegistrationCubit, RegistrationStates>(
-                                  listener: (context, state) {},
+                                  listener: (context, state) {
+                                    if(state is RegistrationSuccessState){
+                                      if(state.registrationModel.type == 'Success'){
+                                        Fluttertoast.showToast(
+                                            msg: state.registrationModel.message.toString(),
+                                            toastLength: Toast.LENGTH_LONG,
+                                            gravity: ToastGravity.BOTTOM,
+                                            timeInSecForIosWeb: 5,
+                                            backgroundColor: Colors.green,
+                                            textColor: Colors.white,
+                                            fontSize: 16.0
+                                        );
+                                      }
+                                    }else if (state is RegistrationErrorState) {
+                                      Fluttertoast.showToast(
+                                          msg:'Check your data and try again',
+                                          toastLength: Toast.LENGTH_LONG,
+                                          gravity: ToastGravity.BOTTOM,
+                                          timeInSecForIosWeb: 5,
+                                          backgroundColor: Colors.red,
+                                          textColor: Colors.white,
+                                          fontSize: 16.0
+                                      );
+                                    }
+                                  },
                                   builder: (context, state) {
                                     return SingleChildScrollView(
                                       physics: const BouncingScrollPhysics(),
@@ -129,19 +155,19 @@ class _LoginScreenState extends State<LoginScreen> {
                                           ConditionalBuilder(
                                             condition:state is! RegistrationLoadingState  ,
                                             builder: (context) =>defaultButton(
-                                                text: 'SIGN up',
+                                                text: 'SIGN UP',
                                                 onPressed: (){
-                                                  if(_formKey.currentState!.validate()){
-                                                    RegistrationCubit.get(context).userRegistration(
-                                                      confirmPassword: confirmPasswordController.text,
-                                                      firstName: firstNameController.text,
-                                                      lastName: lastNameController.text,
-                                                      email: emailController.text,
-                                                      password: passwordController.text,
-                                                    );
-                                                  }
 
-                                                }
+                                                  if(_formKey.currentState!.validate()){
+                                                      RegistrationCubit.get(context).userRegistration(
+                                                        confirmPassword: confirmPasswordController.text,
+                                                        firstName: firstNameController.text,
+                                                        lastName: lastNameController.text,
+                                                        email: emailController.text,
+                                                        password: passwordController.text,
+                                                      );
+                                                    }
+                                                  }
                                             ),
                                             fallback: (context)=> const CircularProgressIndicator(),
                                           ),
@@ -152,7 +178,31 @@ class _LoginScreenState extends State<LoginScreen> {
                                   },
                                 ),
                                 BlocConsumer<LoginCubit, LoginStates>(
-                                  listener: (context, state){},
+                                  listener: (context, state){
+                                    if(state is LoginSuccessState){
+                                      if(state.loginModel.type == 'Success'){
+                                        Fluttertoast.showToast(
+                                            msg: state.loginModel.message.toString(),
+                                            toastLength: Toast.LENGTH_LONG,
+                                            gravity: ToastGravity.BOTTOM,
+                                            timeInSecForIosWeb: 5,
+                                            backgroundColor: Colors.green,
+                                            textColor: Colors.white,
+                                            fontSize: 16.0
+                                        );
+                                      }
+                                    }else if (state is LoginErrorState) {
+                                      Fluttertoast.showToast(
+                                          msg:'Check your data and try again',
+                                          toastLength: Toast.LENGTH_LONG,
+                                          gravity: ToastGravity.BOTTOM,
+                                          timeInSecForIosWeb: 5,
+                                          backgroundColor: Colors.red,
+                                          textColor: Colors.white,
+                                          fontSize: 16.0
+                                      );
+                                    }
+                                  },
                                   builder: (context, state){
                                     return SingleChildScrollView(
                                       child: Column(
@@ -173,7 +223,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                             label: 'Password',
                                           ),
                                           ConditionalBuilder(
-                                            condition:state is! LoginLoadingState  ,
+                                            condition: state is! LoginLoadingState  ,
                                             builder: (context) =>defaultButton(
                                                 text: 'Login',
                                                 onPressed: (){
