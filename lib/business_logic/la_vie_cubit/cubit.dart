@@ -17,6 +17,7 @@ class LaVieCubit extends Cubit<LaVieStates>{
 
   static LaVieCubit get(context) => BlocProvider.of(context);
 
+  late bool isSelected;
   int currentIndex =2;
 
   List<Widget> NavBarScreens = [
@@ -28,10 +29,34 @@ class LaVieCubit extends Cubit<LaVieStates>{
   ];
 
   void changeNavBarScreen(int index){
-
     currentIndex = index;
     emit(LaVieChangeNavBarState());
   }
+  void changeCategoryTitle(int index, textColor, backGroundColor, borderColor){
+    List selectedIndexs=[];
+
+    bool isSelected= selectedIndexs.contains(index,);
+
+    if(isSelected != null){
+      selectedIndexs.add(index);
+      isSelected = true;
+      if(isSelected){
+        textColor= Colors.green;
+        backGroundColor= Colors.white;
+        borderColor=Colors.green;
+      }
+    }else if(isSelected == null) {
+      selectedIndexs.add(index);
+    }
+    emit(LaVieChangeCategoryTitleState());
+    print(selectedIndexs);
+    print(isSelected);
+  }
+  void changeColor(color){
+    final color= Colors.green;
+    emit(LaVieChangeCategoryTitleState());
+  }
+
 }
 
 

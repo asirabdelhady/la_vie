@@ -24,6 +24,8 @@ class _LayoutScreenState extends State<LayoutScreen> {
       builder: (context, state) {
         var cubit = LaVieCubit.get(context);
         return Scaffold(
+          extendBodyBehindAppBar: true,
+          extendBody: true,
           backgroundColor: Color(0xffF6F6F6),
           body: cubit.NavBarScreens[cubit.currentIndex],
           bottomNavigationBar: CurvedNavigationBar(
