@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+
+import '../../constants/constants.dart';
+import '../../data/repository/cache_helper.dart';
+import '../screens/login_screen.dart';
 
 Widget defaultFormField({
   TextEditingController? controller,
@@ -16,7 +21,6 @@ Widget defaultFormField({
         Padding(
           padding: const EdgeInsets.all(20.0),
           child: TextFormField(
-
             obscureText: isPassword!,
             controller: controller,
             validator: (value) {
@@ -62,3 +66,32 @@ Widget defaultButton({
         ),
       ),
     );
+
+Future<bool?> showToast({
+  required text,
+  required color
+}) => Fluttertoast.showToast(
+    msg: text,
+    toastLength: Toast.LENGTH_LONG,
+    gravity: ToastGravity.BOTTOM,
+    timeInSecForIosWeb: 5,
+    backgroundColor: color,
+    textColor: Colors.white,
+    fontSize: 16.0
+);
+
+void navigateTo(context, widget)=> Navigator.push(
+  context,
+  MaterialPageRoute(builder: (_)=> widget),
+);
+
+void navigateAndFinish(context, widget)=> Navigator.pushAndRemoveUntil(
+  context,
+  MaterialPageRoute(builder: (_)=> widget),
+  (route) => false,
+);
+
+void signOut(context){
+  CacheHelper.removeData(key: SharedKeys.token);
+  navigateAndFinish(context, LoginScreen());
+}
