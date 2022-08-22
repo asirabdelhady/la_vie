@@ -4,10 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:la_vie/business_logic/la_vie_cubit/cubit.dart';
 import 'package:la_vie/business_logic/la_vie_cubit/states.dart';
-import 'package:la_vie/constants/constants.dart';
-import 'package:la_vie/data/repository/cache_helper.dart';
-import 'package:la_vie/presentation/screens/login_screen.dart';
-import 'package:la_vie/presentation/widgets/widgets.dart';
 
 class LayoutScreen extends StatefulWidget {
   const LayoutScreen({Key? key}) : super(key: key);

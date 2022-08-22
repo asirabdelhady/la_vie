@@ -1,3 +1,4 @@
+
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -109,19 +110,19 @@ class _LoginScreenState extends State<LoginScreen> {
                                     physics: const BouncingScrollPhysics(),
                                     child: Column(
                                       children: [
-                                        defaultFormField(
+                                        defaultFormFeild(
                                             controller: firstNameController,
                                             label: 'First Name'
                                         ),
-                                        defaultFormField(
+                                        defaultFormFeild(
                                             controller: lastNameController,
                                             label: 'Last Name'
                                         ),
-                                        defaultFormField(
+                                        defaultFormFeild(
                                             controller: emailController,
                                             label: 'Email'
                                         ),
-                                        defaultFormField(
+                                        defaultFormFeild(
                                             isPassword: isPassword,
                                             controller: passwordController,
                                             suffixPressed: (){
@@ -132,7 +133,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                             suffix: isPassword ? Icons.visibility : Icons.visibility_off,
                                             label: 'Password'
                                         ),
-                                        defaultFormField(
+                                        defaultFormFeild(
                                             isPassword: isPassword,
                                             controller: confirmPasswordController,
                                             suffixPressed: (){
@@ -145,7 +146,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                         ),
                                         ConditionalBuilder(
                                           condition:state is! RegistrationLoadingState  ,
-                                          builder: (context) =>defaultButton(
+                                          builder: (context) =>defaultButton1(
                                               text: 'SIGN UP',
                                               onPressed: (){
 
@@ -190,11 +191,11 @@ class _LoginScreenState extends State<LoginScreen> {
                                   return SingleChildScrollView(
                                     child: Column(
                                       children: [
-                                        defaultFormField(
+                                        defaultFormFeild(
                                           controller: emailController,
                                           label: 'Email',
                                         ),
-                                        defaultFormField(
+                                        defaultFormFeild(
                                           suffixPressed: (){
                                             setState(() {
                                               isPassword = !isPassword;
@@ -207,7 +208,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                         ),
                                         ConditionalBuilder(
                                           condition: state is! LoginLoadingState  ,
-                                          builder: (context) =>defaultButton(
+                                          builder: (context) => defaultButton1(
                                               text: 'Login',
                                               onPressed: (){
                                                 if(_formKey.currentState!.validate()){

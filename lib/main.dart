@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:la_vie/Testing.dart';
 import 'package:la_vie/business_logic/la_vie_cubit/cubit.dart';
 import 'package:la_vie/constants/constants.dart';
 import 'package:la_vie/constants/styles.dart';
