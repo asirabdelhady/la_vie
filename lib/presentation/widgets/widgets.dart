@@ -1,6 +1,9 @@
 import 'package:bubble_tab_indicator/bubble_tab_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:la_vie/constants/colors.dart';
+import 'package:la_vie/data/models/seeds_model.dart';
+import 'package:la_vie/data/web_services/end_points.dart';
 import '../../constants/constants.dart';
 import '../../data/repository/cache_helper.dart';
 import '../screens/login_screen.dart';
@@ -42,71 +45,6 @@ class shopingCartButton extends StatelessWidget {
   }
 }
 
-class categoryTitleAndBody extends StatelessWidget {
-   categoryTitleAndBody({
-    Key? key,
-    required this.mediaQueryWidth,
-    required this.mediaQueryHeight,
-  }) : super(key: key);
-  final double mediaQueryWidth;
-  final double mediaQueryHeight;
-  @override
-  Widget build(BuildContext context) {
-    return DefaultTabController(
-        initialIndex: 0,
-        length: 5,
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            children: [
-              Container(
-                width: mediaQueryWidth,
-                height: 35,
-                child: TabBar(
-                  tabs: [
-                    Text('All'),
-                    Text('Plants'),
-                    Text('Seeds'),
-                    Text('Tools'),
-                    Text('Products'),
-                  ],
-                  unselectedLabelColor: Colors.grey,
-                  indicatorColor: Colors.white,
-                  labelColor: Colors.green,
-                  isScrollable: true,
-                  indicatorSize: TabBarIndicatorSize.tab,
-                  indicator: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: Colors.white,
-                      border: Border.all(color: Colors.green)
-                  ),
-                ),
-              ),
-              Container(
-                width: double.infinity,
-                height: mediaQueryHeight,
-                child: TabBarView(children: [
-                  GridView.builder(
-                    gridDelegate:
-                    SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      childAspectRatio: 150/250,
-                      crossAxisSpacing: 10,
-                    ),
-                    itemBuilder: (context, index) => defaultItemCard(),
-                    itemCount: 6,
-                  ),
-                  Center(child: Text('Plants') ),
-                  Center(child: Text('Seeds')),
-                  Center(child: Text('Tools')),
-                  Center(child: Text('Products')),
-                ]),
-              ),
-            ],
-          ),
-        ));
-  }
-}
 
 Widget defaultFormFeild({
   TextEditingController? controller,
@@ -257,9 +195,13 @@ Widget bodyTabView() => DefaultTabController(
     ));
 
 class defaultItemCard extends StatefulWidget {
-  const defaultItemCard({
-    Key? key,
-  }) : super(key: key);
+
+  defaultItemCard({ this.title, this.price, this.image});
+
+  String? title;
+  String? price;
+  String? image;
+
 
   @override
   State<defaultItemCard> createState() => _defaultItemCardState();
@@ -270,7 +212,7 @@ class _defaultItemCardState extends State<defaultItemCard> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 270,
+      height: 250,
           width: 150,
           child: Center(
             child: Stack(
@@ -285,8 +227,23 @@ class _defaultItemCardState extends State<defaultItemCard> {
                   ),
                 ),
                 Positioned(
-                  bottom: 110,
-                  child: Image(image: AssetImage('assets/images/plant.png')),
+                  bottom: 130,
+                  left: 3,
+                  child:Container(
+                    width: 80,
+                    height: 90,
+                    decoration: BoxDecoration(
+                      color: lightGrey(),
+                      border: Border.all(
+                        color: lightGrey()
+                      ),
+                      borderRadius: BorderRadius.circular(10),
+                      image: DecorationImage(
+                        fit: BoxFit.cover,
+                        image: NetworkImage(BASEURL+widget.image!)
+                      ),
+                    ),
+                  ),
                 ),
                 Positioned(
                   left: 80,
@@ -330,19 +287,28 @@ class _defaultItemCardState extends State<defaultItemCard> {
                       )),
                 ),
                 Positioned(
-                    top: 170,
+                    top: 150,
                     left: 10,
-                    child: Text(
-                      'Title',
-                      style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
+                    child: Row(
+                      children: [
+                        Container(
+                          width:140,
+                          child: Text(
+                            widget.title!,
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                          ),
+                        ),
+                      ],
                     )),
                 Positioned(
                     top: 200,
                     left: 10,
-                    child: Text(
-                      'Price',
+                    child: '${widget.price} EGP' != null ? Text(
+                      widget.price!,
                       style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
-                    )),
+                    ) : Text('500 EGP')),
                 Positioned(
                     top: 225,
                     left: 12,

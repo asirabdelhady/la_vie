@@ -50,13 +50,13 @@ class _QrCodeScreenState extends State<QrCodeScreen> {
                   SingleChildScrollView(
                     child: Container(
                       width: mediaQueryWidth,
-                      height: mediaQueryHeight,
+                      height: mediaQueryHeight-24,
                       child: Stack(
                         alignment: Alignment.center,
                         children: [
                           buildQrView(context),
                           Positioned(
-                            bottom: 580,
+                            bottom: 500,
                             right: 300,
                             child: GestureDetector(
                               onTap: (){
@@ -72,7 +72,7 @@ class _QrCodeScreenState extends State<QrCodeScreen> {
                           ),
                           Positioned(
                             bottom: 55,
-                            child: result!= null ?GestureDetector(
+                            child: /*result!= null ?*/GestureDetector(
                               onTap:(){},
                               child: Container(
                                 width: 300,
@@ -103,7 +103,7 @@ class _QrCodeScreenState extends State<QrCodeScreen> {
                                 ],),
 
                               ),
-                            ) : Text(''),
+                            ) /*: Text('')*/,
                           )
                         ],),
                     ),

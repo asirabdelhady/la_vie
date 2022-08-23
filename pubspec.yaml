@@ -37,6 +37,7 @@ dependencies:
   fluentui_system_icons: ^1.1.178
   bubble_tab_indicator: ^0.1.6
   qr_code_scanner: ^1.0.1
+  cached_network_image: ^3.2.1
   flutter:
     sdk: flutter
 

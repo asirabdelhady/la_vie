@@ -1,3 +1,4 @@
+/*
 import 'package:flutter/material.dart';
 
 class FreshProductsShow extends StatefulWidget {
@@ -20,91 +21,117 @@ class _FreshProductsShowState extends State<FreshProductsShow> {
       controller: _parentScrollController,
       child: Column(
         children: [
-          Container(
-            color: Colors.red,
-            height: 300,
-          ),
-          Container(
-            height: widget.pageHeight! / 1.3,
-            width: widget.pageWidth,
-            child: NotificationListener(
-              onNotification: (ScrollNotification notification) {
-                if (notification is ScrollUpdateNotification) {
-                  if (notification.metrics.pixels ==
-                      notification.metrics.maxScrollExtent) {
-                    debugPrint('Reached the bottom');
-                    _parentScrollController.animateTo(
-                        _parentScrollController.position.maxScrollExtent,
-                        duration: Duration(seconds: 1),
-                        curve: Curves.easeIn);
-                  } else if (notification.metrics.pixels ==
-                      notification.metrics.minScrollExtent) {
-                    debugPrint('Reached the top');
-                    _parentScrollController.animateTo(
-                        _parentScrollController.position.minScrollExtent,
-                        duration: Duration(seconds: 1),
-                        curve: Curves.easeIn);
-                  }
-                }
-                return true;
-              },
-              child: ListView.builder(
-                controller: _childScrollController,
-                itemCount: 10,
-                itemBuilder: (context, index) {
-                  return Card(
-                    child: Container(
-                      width: widget.pageWidth,
-                      // height: pageHeight / 7,
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(10)),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        textDirection: TextDirection.rtl,
-                        children: [
-                          Image.asset(
-                            "images/peper.png",
-                            width: widget.pageWidth! / 4,
-                            height: widget.pageHeight! / 8,
-                          ),
-                          Padding(
-                            padding:
-                            EdgeInsets.only(left: widget.pageWidth! / 6.3),
-                            child: Column(
-                              children: [
-                                Padding(
-                                  padding: EdgeInsets.only(
-                                      left: widget.pageWidth! / 10,
-                                      top: widget.pageHeight! / 45),
-                                  child: Text(
-                                    "peper",
-                                    style: TextStyle(
-                                        fontSize: widget.pageHeight! / 48,
-                                        fontWeight: FontWeight.bold,
-                                        color: Color(0xff54595F)),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          )
-                        ],
+          Stack(
+            clipBehavior: Clip.none,
+            children: [
+              Container(
+                height: 160.0,
+                width: 160.0,
+                padding: const EdgeInsets.only(bottom: 8.0),
+                child: Padding(
+                  padding: const EdgeInsets.all(4.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Text(
+                        widget.cubit.productModel!.data![widget.index].name!,
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 13.0,
+                        ),
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 1,
                       ),
-                      alignment: Alignment.centerRight,
-                    ),
-                    elevation: 5,
-                  );
-                },
-                scrollDirection: Axis.vertical,
+                      const SizedBox(
+                        height: 4.0,
+                      ),
+                      Text(
+                        '${widget.cubit.productModel!.data![widget.index].price.toString()} EGP',
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 11.0,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 4.0,
+                      ),
+                      defaultButtom(
+                        function: () {},
+                        text: 'Add To Cart',
+                      ),
+                    ],
+                  ),
+                ),
               ),
-            ),
-          ),
-          Container(
-            color: Colors.red,
-            height: 300,
+              Positioned(
+                top: -33,
+                child: Row(
+                  children: [
+                    Container(
+                      height: 80,
+                      width: 80,
+                      child: CachedNetworkImage(
+                        imageUrl:
+                        'https://lavie.orangedigitalcenteregypt.com${widget.cubit.productModel!.data![widget.index].imageUrl!}',
+                        // في حالة التحميل
+                        progressIndicatorBuilder: (context, url, progress) =>
+                            CircularProgressIndicator(
+                              value: progress.progress,
+                            ),
+                        // في حالة الخطا
+                        errorWidget: (context, url, error) =>
+                        const Icon(Icons.error),
+                      ),
+                    ),
+                    const SizedBox(
+                      width: 5.0,
+                    ),
+                    InkWell(
+                      onTap: () {
+                        if (count <= 1) return;
+                        count--;
+                        setState(() {});
+                      },
+                      child: Container(
+                        color: Colors.grey[100],
+                        child: const Icon(
+                          Icons.remove,
+                          color: Colors.grey,
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 5.0,
+                      ),
+                      child: Text(
+                        '$count',
+                        style: const TextStyle(
+                            fontSize: 24, fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                    InkWell(
+                      onTap: () {
+                        count++;
+                        setState(() {});
+                      },
+                      child: Container(
+                        color: Colors.grey[100],
+                        child: const Icon(
+                          Icons.add,
+                          color: Colors.grey,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
           ),
         ],
       ),
     );
   }
 }
+*/

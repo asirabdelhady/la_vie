@@ -26,6 +26,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var myToken = CacheHelper.getData(key: SharedKeys.token);
+
     return MultiBlocProvider(
       providers: [
         BlocProvider(
@@ -35,7 +36,7 @@ class MyApp extends StatelessWidget {
           create: (BuildContext context) => RegistrationCubit(),
         ),
         BlocProvider(
-          create: (BuildContext context) => LaVieCubit(),
+          create: (BuildContext context) => LaVieCubit()..getSeeds()..getPlants()..getTools()..getProducts(),
         ),
       ],
       child: MaterialApp(
