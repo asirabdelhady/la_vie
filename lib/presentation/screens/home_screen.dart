@@ -22,7 +22,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     var cubit = LaVieCubit.get(context);
     var mediaQueryHeight = MediaQuery.of(context).size.height;
-    var mediaQueryWidth = MediaQuery.of(context).size.height;
+    var mediaQueryWidth = MediaQuery.of(context).size.width;
     ScrollController parentScrollController = ScrollController();
     ScrollController childScrollController = ScrollController();
     return BlocConsumer<LaVieCubit, LaVieStates>(
@@ -53,20 +53,20 @@ class _HomeScreenState extends State<HomeScreen> {
                         debugPrint('Reached the bottom');
                         parentScrollController.animateTo(
                             parentScrollController.position.maxScrollExtent,
-                            duration: Duration(seconds: 1),
+                            duration: Duration(milliseconds:300),
                             curve: Curves.easeIn);
                       } else if (notification.metrics.pixels ==
                           notification.metrics.minScrollExtent) {
                         debugPrint('Reached the top');
                         parentScrollController.animateTo(
                             parentScrollController.position.minScrollExtent,
-                            duration: Duration(seconds: 1),
+                            duration: Duration(milliseconds:300),
                             curve: Curves.easeIn);
                       }
                     };
                     return true;
                   },
-                    child: cetegoryTitleAndBody(mediaQueryWidth: mediaQueryWidth, mediaQueryHeight: mediaQueryHeight))),
+                    child: categoryTitleAndBody(mediaQueryWidth: mediaQueryWidth, mediaQueryHeight: mediaQueryHeight))),
           ],
         ),
       );

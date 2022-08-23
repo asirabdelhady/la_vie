@@ -1,9 +1,6 @@
 import 'package:bubble_tab_indicator/bubble_tab_indicator.dart';
-import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:la_vie/business_logic/la_vie_cubit/cubit.dart';
-
 import '../../constants/constants.dart';
 import '../../data/repository/cache_helper.dart';
 import '../screens/login_screen.dart';
@@ -45,8 +42,8 @@ class shopingCartButton extends StatelessWidget {
   }
 }
 
-class cetegoryTitleAndBody extends StatelessWidget {
-   cetegoryTitleAndBody({
+class categoryTitleAndBody extends StatelessWidget {
+   categoryTitleAndBody({
     Key? key,
     required this.mediaQueryWidth,
     required this.mediaQueryHeight,
@@ -272,7 +269,7 @@ class _defaultItemCardState extends State<defaultItemCard> {
   int itemCounter = 1;
   @override
   Widget build(BuildContext context) {
-    return     Container(
+    return Container(
       height: 270,
           width: 150,
           child: Center(

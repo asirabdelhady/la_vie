@@ -31,7 +31,7 @@ class _LayoutScreenState extends State<LayoutScreen> {
             index: cubit.currentIndex,
             height: 55,
               onTap: (index){
-              cubit.changeNavBarScreen(index);
+              cubit.changeNavBarScreen(context, index);
               },
               items: [
                 Icon(FluentIcons.leaf_two_24_regular,

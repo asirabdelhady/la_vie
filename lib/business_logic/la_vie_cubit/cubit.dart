@@ -11,6 +11,7 @@ import 'package:la_vie/presentation/screens/leave_screen.dart';
 import 'package:la_vie/presentation/screens/notification_screen.dart';
 import 'package:la_vie/presentation/screens/profile_screen.dart';
 import 'package:la_vie/presentation/screens/qr_code_scanner_screen.dart';
+import 'package:la_vie/presentation/widgets/widgets.dart';
 
 class LaVieCubit extends Cubit<LaVieStates>{
   LaVieCubit() : super(LaVieInitialState());
@@ -29,8 +30,12 @@ class LaVieCubit extends Cubit<LaVieStates>{
     ProfileScreen()
   ];
 
-  void changeNavBarScreen(int index){
+  void changeNavBarScreen(context,int index){
+
     currentIndex = index;
+    if(index==1){
+      navigateTo(context, QrCodeScreen());
+    }
     emit(LaVieChangeNavBarState());
   }
 
