@@ -1,11 +1,9 @@
-import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:la_vie/constants/colors.dart';
 import 'package:la_vie/presentation/screens/create_post_screen.dart';
 import 'package:la_vie/presentation/widgets/widgets.dart';
-
 import '../../business_logic/la_vie_cubit/cubit.dart';
 import '../../business_logic/la_vie_cubit/states.dart';
 import '../../data/web_services/end_points.dart';
@@ -39,18 +37,18 @@ class _ForumsScreenState extends State<ForumsScreen> {
                       padding: const EdgeInsets.only(left: 12.0, right: 12),
                       child: Column(
                         children: [
-                          Text(
+                          const Text(
                             'Discussion Forums',
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 18,
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 16,
                           ),
                           searchFormFeild(width: double.infinity),
-                          SizedBox(
+                          const SizedBox(
                             height: 16,
                           ),
                           SingleChildScrollView(
@@ -63,14 +61,14 @@ class _ForumsScreenState extends State<ForumsScreen> {
                                     debugPrint('Reached the bottom');
                                     parentScrollController.animateTo(
                                         parentScrollController.position.maxScrollExtent,
-                                        duration: Duration(milliseconds:300),
+                                        duration: const Duration(milliseconds:300),
                                         curve: Curves.easeIn);
                                   } else if (notification.metrics.pixels ==
                                       notification.metrics.minScrollExtent) {
                                     debugPrint('Reached the top');
                                     parentScrollController.animateTo(
                                         parentScrollController.position.minScrollExtent,
-                                        duration: Duration(milliseconds:300),
+                                        duration: const Duration(milliseconds:300),
                                         curve: Curves.easeIn);
                                   }
                                 };
@@ -86,7 +84,7 @@ class _ForumsScreenState extends State<ForumsScreen> {
                                         width: double.infinity,
                                         height: 30,
                                         child: TabBar(
-                                          tabs: [
+                                          tabs: const [
                                             Text('All Forums'),
                                             Text('My Forums'),
                                           ],
@@ -110,7 +108,7 @@ class _ForumsScreenState extends State<ForumsScreen> {
                                               child: ListView.separated(
                                                   itemCount: 6,
                                                   separatorBuilder: (context, index) =>
-                                                      SizedBox(
+                                                      const SizedBox(
                                                         height: 12,
                                                       ),
                                                   itemBuilder: (context, index) =>
@@ -129,7 +127,7 @@ class _ForumsScreenState extends State<ForumsScreen> {
                                               child: ListView.separated(
                                                   itemCount: 6,
                                                   separatorBuilder: (context, index) =>
-                                                      SizedBox(
+                                                      const SizedBox(
                                                         height: 12,
                                                       ),
                                                   itemBuilder: (context, index) =>
@@ -157,9 +155,9 @@ class _ForumsScreenState extends State<ForumsScreen> {
                   left: 280,
                   child: FloatingActionButton(
                     onPressed: (){
-                      navigateTo(context, CreatePost());
+                      navigateTo(context, const CreatePost());
                     },
-                    child: Icon(Icons.add),),
+                    child: const Icon(Icons.add),),
                 ),
               ],
             ),
@@ -214,7 +212,7 @@ class _forumCardState extends State<forumCard> {
                       child: Row(
                         children: [
                           CircleAvatar(backgroundImage: NetworkImage(widget.userImage!), ),
-                          SizedBox(
+                          const SizedBox(
                             width: 15,
                           ),
                           Column(
@@ -222,10 +220,10 @@ class _forumCardState extends State<forumCard> {
                             children: [
                               Text(
                                 widget.username!,
-                                style: TextStyle(
+                                style: const TextStyle(
                                     fontWeight: FontWeight.bold, fontSize: 15),
                               ),
-                              Text(
+                              const Text(
                                 'a month ago',
                                 style: TextStyle(fontSize: 10),
                               )
@@ -236,16 +234,16 @@ class _forumCardState extends State<forumCard> {
                     ),
                     Text(
                       widget.postTitle!,
-                      style: TextStyle(
+                      style: const TextStyle(
                           color: Colors.green,
                           fontWeight: FontWeight.bold,
                           fontSize: 18),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 6,
                     ),
                     Text(widget.postDescription!),
-                    SizedBox(
+                    const SizedBox(
                       height: 12,
                     ),
                   ],
