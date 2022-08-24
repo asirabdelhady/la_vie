@@ -11,3 +11,9 @@ const TOOLS = '/api/v1/tools';
 const PRODUCTS= '/api/v1/products';
 
 const BASEURL = 'https://lavie.orangedigitalcenteregypt.com';
+
+const FORUMS = '/api/v1/forums';
+
+const CURRENT_USER = '/api/v1/user/me';
+
+const MY_FORUM='/api/v1/forums/me';

@@ -85,8 +85,51 @@ Widget defaultFormFeild({
   ],
 );
 
+Widget descriptionFormFeild({
+  TextEditingController? controller,
+  String? label,
+  bool? isPassword = false,
+  IconData? suffix,
+  Function? suffixPressed,
+  Function? onSubmit,
+})=> Column(
+  crossAxisAlignment: CrossAxisAlignment.start,
+  children: [
+    Padding(
+      padding: const EdgeInsets.only(left: 20.0),
+      child: Text(label!),
+    ),
+    Padding(
+      padding: const EdgeInsets.all(20.0),
+      child: Container(
+        width: double.infinity,
+        height: 200,
+        child: TextFormField(
+          //onFieldSubmitted: onSubmit!(),
+          obscureText: isPassword!,
+          controller: controller,
+          validator: (value) {
+            if (value!.isEmpty) {
+              return 'Enter Valid data';
+            }
+          },
+          decoration: InputDecoration(
+            suffixIcon: suffix != null
+                ? IconButton(
+                onPressed: () => suffixPressed!(), icon: Icon(suffix))
+                : null,
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(5),
+            ),
+          ),
+        ),
+      ),
+    ),
+  ],
+);
+
 Widget defaultButton1({
-  double wid = double.infinity,
+  double width = double.infinity,
   required String text,
   bool isUpper = true,
   Color back = Colors.green,
@@ -95,8 +138,9 @@ Widget defaultButton1({
     Padding(
       padding: const EdgeInsets.all(20.0),
       child: Container(
-        width: wid,
+        width: width,
         decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
           color: back,
         ),
         child: TextButton(
@@ -137,10 +181,10 @@ void signOut(context) {
   navigateAndFinish(context, LoginScreen());
 }
 
-Widget searchFormFeild() => Container(
+Widget searchFormFeild({required double width}) => Container(
     decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(5), color: Color(0xffdedddd)),
-    width: 270,
+    width: width,
     height: 40,
     child: Padding(
       padding: const EdgeInsets.only(left: 8.0),

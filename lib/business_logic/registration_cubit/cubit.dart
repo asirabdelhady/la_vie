@@ -3,7 +3,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:la_vie/business_logic/registration_cubit/states.dart';
-import 'package:la_vie/data/models/registration_model.dart';
+import 'package:la_vie/data/models/user_model.dart';
 import 'package:la_vie/data/web_services/end_points.dart';
 import '../../data/web_services/dio_helper.dart';
 
@@ -13,7 +13,7 @@ class RegistrationCubit extends Cubit<RegistrationStates>{
 
   static RegistrationCubit get(context) => BlocProvider.of(context);
 
-  late final RegistrationModel registrationModel;
+  late final UserModel registrationModel;
   void userRegistration({
     required String firstName,
     required String lastName,
@@ -33,7 +33,7 @@ class RegistrationCubit extends Cubit<RegistrationStates>{
         "confirmPassword":confirmPassword,
       },).then((value) {
       print(value.data);
-      registrationModel=RegistrationModel.fromJson(value.data);
+      registrationModel=UserModel.fromJson(value.data);
       print(registrationModel.type);
       emit(RegistrationSuccessState(registrationModel));
     }).catchError((error){

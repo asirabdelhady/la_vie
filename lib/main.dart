@@ -36,7 +36,7 @@ class MyApp extends StatelessWidget {
           create: (BuildContext context) => RegistrationCubit(),
         ),
         BlocProvider(
-          create: (BuildContext context) => LaVieCubit()..getSeeds()..getPlants()..getTools()..getProducts(),
+          create: (BuildContext context) => LaVieCubit()..getSeeds()..getPlants()..getTools()..getProducts()..getForums()..getCurrentUser()..getMyForums(),
         ),
       ],
       child: MaterialApp(

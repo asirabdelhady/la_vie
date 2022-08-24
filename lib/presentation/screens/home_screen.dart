@@ -45,12 +45,12 @@ class _HomeScreenState extends State<HomeScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                searchFormFeild(),
+                searchFormFeild(width: 250),
                 shopingCartButton(),
               ],
             ),
             SingleChildScrollView(
-              controller: childScrollController,
+                controller: childScrollController,
                 child: NotificationListener(
                   onNotification: (ScrollNotification notification){
                     if (notification is ScrollUpdateNotification) {
@@ -72,37 +72,37 @@ class _HomeScreenState extends State<HomeScreen> {
                     };
                     return true;
                   },
-                    child: DefaultTabController(
-                        initialIndex: 0,
-                        length: 5,
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Column(
-                            children: [
-                              Container(
-                                width: mediaQueryWidth,
-                                height: 35,
-                                child: TabBar(
-                                  tabs: [
-                                    Text('All'),
-                                    Text('Plants'),
-                                    Text('Seeds'),
-                                    Text('Tools'),
-                                    Text('Products'),
-                                  ],
-                                  unselectedLabelColor: Colors.grey,
-                                  indicatorColor: Colors.white,
-                                  labelColor: Colors.green,
-                                  isScrollable: true,
-                                  indicatorSize: TabBarIndicatorSize.tab,
-                                  indicator: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(10),
-                                      color: Colors.white,
-                                      border: Border.all(color: Colors.green)
-                                  ),
+                  child: DefaultTabController(
+                      initialIndex: 0,
+                      length: 5,
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 8.0, right: 8, top: 12),
+                        child: Column(
+                          children: [
+                            Container(
+                              width: mediaQueryWidth,
+                              height: 35,
+                              child: TabBar(
+                                tabs: [
+                                  Text('All'),
+                                  Text('Plants'),
+                                  Text('Seeds'),
+                                  Text('Tools'),
+                                  Text('Products'),
+                                ],
+                                unselectedLabelColor: Colors.grey,
+                                indicatorColor: Colors.white,
+                                labelColor: Colors.green,
+                                isScrollable: true,
+                                indicatorSize: TabBarIndicatorSize.tab,
+                                indicator: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    color: Colors.white,
+                                    border: Border.all(color: Colors.green)
                                 ),
                               ),
-                              if(cubit.seedsModel!=null)
+                            ),
+                            if(cubit.seedsModel!=null)
                               Container(
                                 width: double.infinity,
                                 height: mediaQueryHeight,
@@ -199,13 +199,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                       }, fallback: (context)=> CircularProgressIndicator()),
                                 ]),
                               ),
-                              ElevatedButton(onPressed: (){
-                                signOut(context);
-                              }, child: Text('logout')),
-                              SizedBox(height: 55,)
-                            ],
-                          ),
-                        )),
+                          ],
+                        ),
+                      )),
                 )
             ),
           ],

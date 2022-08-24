@@ -73,7 +73,14 @@ class _QrCodeScreenState extends State<QrCodeScreen> {
                           Positioned(
                             bottom: 55,
                             child: /*result!= null ?*/GestureDetector(
-                              onTap:(){},
+                              onTap:(){
+                                showBottomSheet(context: (context), builder: (context){
+                                  return Column( crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                    Text('Plant name', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),)
+                                  ],);
+                                });
+                              },
                               child: Container(
                                 width: 300,
                                 height: 70,

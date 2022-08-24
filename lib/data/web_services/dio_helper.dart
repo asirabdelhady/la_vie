@@ -45,8 +45,10 @@ class DioHelper{
    static Future<Response> postData({
      required String url,
      Map<String, dynamic>? query,
+     dynamic token,
      required Map<String, dynamic>? data
    })async {
+     dio.options.headers={'Authorization': 'Bearer $token'};
      return dio.post(url, queryParameters: query, data: data);
    }
 
